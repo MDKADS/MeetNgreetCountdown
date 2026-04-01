@@ -17,7 +17,7 @@
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            background-attachment: fixed;
+            background-color: #000; /* Fallback */
         }
 
         /* 1. Moving Lines Overlay */
@@ -46,7 +46,7 @@
             position: absolute;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            pointer-events: none; /* Let clicks pass through to the card */
+            pointer-events: none;
             z-index: 10;
         }
 
@@ -63,63 +63,66 @@
         /* Countdown UI */
         #countdown-container {
             text-align: center;
-            background: rgba(255, 255, 255, 0.15);
+            /* Changed to Cream White Pale */
+            background: rgba(255, 253, 240, 0.95); 
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
             padding: 40px 60px;
             border-radius: 30px;
-            border: 2px solid rgba(255, 255, 255, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.6);
             box-shadow: 0 20px 50px rgba(0,0,0,0.3);
             transform: scale(1);
             transition: transform 0.3s ease;
-        }
-
-        #countdown-container:hover {
-            transform: scale(1.02);
+            will-change: transform;
         }
 
         .title {
-            color: #fff;
+            /* Adjusted to dark red for visibility on cream */
+            color: #d94a4a; 
             font-family: 'Fredoka One', cursive;
             font-size: 2.5rem;
-            margin-bottom: 5px; /* Reduced to make room for the date */
-            text-shadow: 0 4px 15px rgba(255, 105, 180, 0.6);
+            margin-bottom: 5px; 
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             letter-spacing: 2px;
         }
 
-        /* NEW: Styling for the auto-calculated date display */
         .target-date-display {
-            color: #ffb3d9;
+            /* Adjusted to slightly lighter red for visibility */
+            color: #e06666; 
             font-size: 1.2rem;
             font-weight: 800;
             margin-bottom: 25px;
             letter-spacing: 1px;
-            text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+            text-shadow: 0 1px 3px rgba(0,0,0,0.1);
             text-transform: uppercase;
         }
 
         .time-blocks {
             display: flex;
             gap: 20px;
+            justify-content: center;
         }
 
         .time-box {
             display: flex;
             flex-direction: column;
             align-items: center;
-            background: rgba(0, 0, 0, 0.4);
+            /* Changed to Light Red */
+            background: rgba(255, 128, 128, 0.9); 
             padding: 20px;
             border-radius: 20px;
             min-width: 90px;
-            box-shadow: inset 0 0 10px rgba(255,255,255,0.1);
+            box-shadow: inset 0 0 10px rgba(255,255,255,0.3), 0 5px 15px rgba(0,0,0,0.1);
         }
 
         .number {
             font-family: 'Fredoka One', cursive;
             font-size: 4rem;
-            color: #ffb3d9;
-            text-shadow: 0 0 20px rgba(255, 105, 180, 0.8);
+            /* Changed to Pure White */
+            color: #ffffff; 
+            text-shadow: 0 2px 10px rgba(255, 255, 255, 0.6);
             line-height: 1;
+            font-variant-numeric: tabular-nums; 
         }
 
         .label {
@@ -128,29 +131,25 @@
             text-transform: uppercase;
             letter-spacing: 2px;
             margin-top: 10px;
-            opacity: 0.9;
+            opacity: 0.95;
+            font-weight: bold;
         }
 
-        /* Final Card UI (Hidden initially) */
+        /* Final Card UI */
         #final-card {
-            display: none; /* Hidden by default */
+            display: none; 
             border-radius: 30px;
             overflow: hidden;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 30px rgba(255, 105, 180, 0.4);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 30px rgba(255, 128, 128, 0.4);
             cursor: pointer;
             transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             background: #fff;
             animation: popIn 0.8s ease forwards;
         }
 
-        #final-card:hover {
-            transform: scale(1.05) translateY(-10px);
-            box-shadow: 0 30px 70px rgba(0,0,0,0.6), 0 0 50px rgba(255, 105, 180, 0.6);
-        }
-
         #final-card img {
             display: block;
-            width: 300px; /* Adjust size as needed */
+            width: 300px; 
             height: auto;
         }
 
@@ -159,21 +158,51 @@
             100% { transform: scale(1); opacity: 1; }
         }
 
-        /* Floating Hearts Animation */
-        .heart {
-            position: absolute;
-            color: rgba(255, 105, 180, 0.6);
-            font-size: 20px;
-            user-select: none;
-            z-index: -1;
-            animation: floatUp linear infinite;
-        }
+        /* ==========================================
+           📱 MOBILE RESPONSIVENESS (Single Line) 📱
+           ========================================== */
+        @media (max-width: 768px) {
+            #countdown-container {
+                padding: 20px 10px;
+                width: 92%; 
+                max-width: 500px;
+            }
 
-        @keyframes floatUp {
-            0% { transform: translateY(100vh) scale(0.5) rotate(0deg); opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { transform: translateY(-100px) scale(1.5) rotate(360deg); opacity: 0; }
+            .title {
+                font-size: 1.6rem;
+            }
+
+            .target-date-display {
+                font-size: 0.75rem;
+                margin-bottom: 15px;
+            }
+
+            .time-blocks {
+                display: flex;
+                flex-direction: row; 
+                gap: 5px; 
+            }
+
+            .time-box {
+                min-width: 0; 
+                padding: 10px 2px;
+                flex: 1; 
+            }
+
+            .number {
+                font-size: 1.5rem; 
+            }
+
+            .label {
+                font-size: 0.55rem; 
+                margin-top: 5px;
+                letter-spacing: 0.5px;
+            }
+
+            #final-card img {
+                width: 75vw;
+                max-width: 280px;
+            }
         }
     </style>
 </head>
@@ -185,7 +214,6 @@
     <div class="container">
         <div id="countdown-container">
             <div class="title">Meet & Greet</div>
-            
             <div id="target-date-text" class="target-date-display">Loading date...</div>
 
             <div class="time-blocks">
@@ -214,31 +242,16 @@
     </div>
 
     <script>
-        // 🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟
-        // 🌟                                                                  🌟
-        // 🌟               CHANGE YOUR TARGET DATE AND TIME BELOW             🌟
-        // 🌟               Format: "Month DD, YYYY HH:MM:SS"                  🌟
-        // 🌟                                                                  🌟
-        
         const MY_TARGET_DATE = "May 15, 2026 15:30:00";
-        
-        // 🌟                                                                  🌟
-        // 🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟
 
-
-        // --- Setup the Target Date and auto-populate the UI ---
         const targetDateObj = new Date(MY_TARGET_DATE);
         const countdownDate = targetDateObj.getTime();
 
-        // Auto-calculate how the date should look (e.g., "Friday, May 15, 2026 at 3:30 PM")
         const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
         const formattedDateString = targetDateObj.toLocaleDateString('en-US', dateOptions);
         
-        // Put the formatted date into the HTML directly above the countdown
         document.getElementById("target-date-text").innerText = "see you on " + formattedDateString;
 
-
-        // --- Countdown Logic ---
         const countdownContainer = document.getElementById("countdown-container");
         const finalCard = document.getElementById("final-card");
 
@@ -246,19 +259,16 @@
             const now = new Date().getTime();
             const distance = countdownDate - now;
 
-            // Time calculations
             const days = Math.floor(distance / (1000 * 60 * 60 * 24));
             const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-            // Output the result
             document.getElementById("days").innerText = days.toString().padStart(2, '0');
             document.getElementById("hours").innerText = hours.toString().padStart(2, '0');
             document.getElementById("minutes").innerText = minutes.toString().padStart(2, '0');
             document.getElementById("seconds").innerText = seconds.toString().padStart(2, '0');
 
-            // If the countdown is over
             if (distance < 0) {
                 clearInterval(timerInterval);
                 countdownContainer.style.display = "none";
@@ -266,7 +276,6 @@
             }
         }, 1000);
 
-        // --- Brush Stroke Mouse Trail Logic ---
         const canvas = document.getElementById('trailCanvas');
         const ctx = canvas.getContext('2d');
         let width, height;
@@ -285,10 +294,15 @@
             points.push({ x: e.clientX, y: e.clientY, age: 0 });
         });
 
+        window.addEventListener('touchmove', (e) => {
+            if (e.touches.length > 0) {
+                points.push({ x: e.touches[0].clientX, y: e.touches[0].clientY, age: 0 });
+            }
+        });
+
         function animateTrail() {
             ctx.clearRect(0, 0, width, height);
             
-            // Draw a smooth brush-like stroke
             if (points.length > 1) {
                 ctx.beginPath();
                 ctx.moveTo(points[0].x, points[0].y);
@@ -299,49 +313,22 @@
                 }
                 ctx.lineCap = 'round';
                 ctx.lineJoin = 'round';
-                
-                // Neon pink brush style
-                ctx.strokeStyle = 'rgba(255, 105, 180, 0.4)'; 
+                ctx.strokeStyle = 'rgba(255, 128, 128, 0.4)'; /* Adjusted trail color slightly to match */
                 ctx.lineWidth = 15;
                 ctx.shadowBlur = 10;
-                ctx.shadowColor = 'rgba(255, 105, 180, 0.8)';
+                ctx.shadowColor = 'rgba(255, 128, 128, 0.8)';
                 ctx.stroke();
-                ctx.shadowBlur = 0; // reset for next frame
+                ctx.shadowBlur = 0; 
             }
 
-            // Age points and remove old ones
             for (let i = 0; i < points.length; i++) {
                 points[i].age++;
             }
-            points = points.filter(p => p.age < 20); // Trail length control
+            points = points.filter(p => p.age < 20); 
 
             requestAnimationFrame(animateTrail);
         }
         animateTrail();
-
-        // --- Floating Animated Hearts Logic ---
-        function createHeart() {
-            const heart = document.createElement('div');
-            heart.innerHTML = '❤';
-            heart.classList.add('heart');
-            
-            // Random styling
-            heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.animationDuration = Math.random() * 5 + 5 + 's'; // 5s to 10s
-            heart.style.opacity = Math.random() * 0.5 + 0.3;
-            heart.style.fontSize = Math.random() * 20 + 10 + 'px';
-            
-            document.body.appendChild(heart);
-
-            // Remove heart after animation finishes to keep DOM clean
-            setTimeout(() => {
-                heart.remove();
-            }, 10000);
-        }
-
-        // Spawn a new heart every 400ms
-        setInterval(createHeart, 400);
-
     </script>
 </body>
 </html>
